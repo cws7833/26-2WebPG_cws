@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+html,
+/* 웹폰트 */
+.song-myung-regular {
+  font-family: "Song Myung", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: black;
+}
+
+/* 큰 배경 이미지에 object-position을 조절해서 우주에서 이동하는 느낌 부여 */
+.space-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: calc(50% + 1100px - 70vw) calc(50% - 350px);
+  transition: object-position 4s ease-out;
+}
+.active .space-bg {
+  object-position: calc(50% - 1100px + 70vw) calc(50% + 350px);
+}
+
+.mouse-ready .space-bg {
+  transition: object-position 0.35s ease-out;
+}
+
+/* 블랙홀은 처음에 화면 바깥에 존재, 클릭 시 화면 안으로 이동 */
+.black-hole {
+  width: 1600px;
+  height: auto;
+  max-width: none;
+  right: calc(100% - 2200px);
+  top: -1000px;
+  position: absolute;
+  transition:
+    top 4s ease-out,
+    right 4s ease-out;
+}
+.active .black-hole {
+  top: -300px;
+  right: -40%;
+}
+
+/* 우주선은 float로 떠다니는 모션 + 클릭 시 이동 모션 */
+.spaceship {
+  width: 30%;
+  height: auto;
+  left: 25%;
+  top: 50%;
+  position: absolute;
+  margin-top: -12.6vw;
+  animation: float 6s ease-in-out infinite;
+  transition:
+    left 0.35s ease-out,
+    top 0.35s ease-out;
+}
+.active .spaceship {
+  animation: spaceship-path 4s ease-in-out forwards;
+}
+
+/* 클릭이벤트 종료 시, 우주선과 블랙홀 설정 변경*/
+/* 우주선의 마지막 위치 저장 */
+.active.mouse-ready .spaceship {
+  animation: none;
+  width: 10%;
+  left: 18.7%;
+  top: 50.5%;
+  margin-top: 0;
+  rotate: -180deg;
+}
+/* 블랙홀 이동속도 변화 */
+.mouse-ready .black-hole {
+  transition:
+    top 0.35s ease-out,
+    right 0.35s ease-out;
+}
+
+/* 클릭 이벤트 시의 우주선 이동경로 */
+@keyframes spaceship-path {
+  0% {
+    width: 30%;
+    left: 25%;
+    top: 50%;
+    margin-top: -12.6vw;
+    rotate: 0deg;
+  }
+
+  50% {
+    width: 9%;
+    left: 10%;
+    top: 73%;
+    margin-top: -8vw;
+    rotate: -95deg;
+  }
+
+  100% {
+    width: 10%;
+    left: 18.7%;
+    top: 50.5%;
+    margin-top: 0;
+    rotate: -180deg;
+  }
+}
+
+/* 우주선 상시로 떠다니는 움직임*/
+@keyframes float {
+  0%,
+  100% {
+    top: 50%;
+  }
+  50% {
+    top: calc(50% - 10px);
+  }
+}
+
+/* 인터스텔라 글씨 */
+.TitleText {
+  position: absolute;
+  bottom: -200px;
+  right: 80px;
+  color: white;
+  font-size: 120px;
+  font-family: "Song Myung", serif;
+  font-weight: 400;
+  font-style: normal;
+  transition: bottom 4s ease-in-out;
+}
+
+.active .TitleText {
+  bottom: 80px;
+}
+
+.contentText {
+  position: absolute;
+  bottom: 20px;
+  right: 100px;
+  color: white;
+  font-size: 24px;
+  font-family: "Song Myung", serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+.contentText.visible {
+  opacity: 1;
+}
